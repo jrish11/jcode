@@ -267,7 +267,7 @@ fn validate_profile_name(raw: &str) -> Result<String> {
         anyhow::bail!("provider profile name must be at most 64 characters");
     }
     let mut chars = name.chars();
-    let first = chars.next().unwrap();
+    let first = chars.next().ok_or_else(|| anyhow::anyhow!("provider profile name cannot be empty"))?;
     if !first.is_ascii_alphanumeric() {
         anyhow::bail!("provider profile name must start with a letter or number");
     }
